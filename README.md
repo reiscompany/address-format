@@ -1,10 +1,10 @@
 Address Format
 =============
 
-[![Latest Version](https://img.shields.io/github/tag/adamlc/address-format.svg?label=release&style=flat-square)](https://github.com/adamlc/address-format/releases)
+[![Latest Version](https://img.shields.io/github/tag/reiscompany/address-format.svg?label=release&style=flat-square)](https://github.com/reiscompany/address-format/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/adamlc/address-format/ci.yml?style=flat-square)](https://github.com/adamlc/address-format/actions/workflows/ci.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/adamlc/address-format.svg?style=flat-square)](https://packagist.org/packages/adamlc/address-format)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/reiscompany/address-format/ci.yml?style=flat-square)](https://github.com/reiscompany/address-format/actions/workflows/ci.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/reiscompany/address-format.svg?style=flat-square)](https://packagist.org/packages/reiscompany/address-format)
 
 A PHP library to parse street addresses to localized formats. The address formats are based on the formats supplied by Google's libaddressinput.
 
