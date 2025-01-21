@@ -99,9 +99,32 @@ class Format implements \ArrayAccess
             $formatted_address = $address_format;
 
             //Replace the street values
+
             foreach ($this->address_map as $key => $value) {
+                
                 if( empty( $this->input_map[$value] ) ) {
-                    $key = '%' . $key . '%n'; // Also remove the %n newline otherwise it's being left there
+
+                    switch ($formatted_address) {
+                        case \str_contains( $formatted_address, '%' . $key . '%n'):
+                            // Remove the %n newline otherwise it's being left there
+                            $key = '%' . $key . '%n';
+                            break;
+                        case \str_contains( $formatted_address, '%' . $key . ' ' ):
+                            // NL.json %Z has no %n newline as suffix but a space, so remove the key wíth the space.
+                            // This is for when the address does have country but no postalcode.
+                            $key = '%' . $key . ' ';
+                            break;
+                        case \str_contains( $formatted_address, ' %' . $key ) :
+                            // NL.json %C has no %n newline as prefix but a space, so remove the key wíth the space.
+                            // This is for when the address does have postalcode but no country.
+                            $key = ' %' . $key;
+                            break;
+                        case \str_contains( $formatted_address, '%' . $key ) :
+                             // NL.json Just the % + key when it has no %n newline as suffix.
+                            $key = '%' . $key;
+                            break;
+                    }
+
                     $replacement = '';
                 } else {
                     $key = '%' . $key;
@@ -109,6 +132,7 @@ class Format implements \ArrayAccess
                 }
 
                 $formatted_address = str_replace($key, $replacement, $formatted_address);
+                
             }
 
             //Remove blank lines from the resulting address

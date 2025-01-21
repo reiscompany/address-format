@@ -168,16 +168,30 @@ class FormatTest extends \PHPUnit\Framework\TestCase
     	//Set Locale and attributes
 		$this->container->setLocale('DE');
 
-		$this->container->setAttribute('LOCALITY', 'Oyenhausen');
+		$this->container->setAttribute('LOCALITY', '');
 		$this->container->setAttribute('RECIPIENT', '');
 		$this->container->setAttribute('ORGANIZATION', '');
-		$this->container->setAttribute('POSTAL_CODE', '32547');
+		$this->container->setAttribute('POSTAL_CODE', '');
 		$this->container->setAttribute('STREET_ADDRESS', 'Schulstrasse 4');
 
 		$this->assertEquals(
 			$this->container->formatAddress(),
-			"Schulstrasse 4\n32547 Oyenhausen"
+			"Schulstrasse 4"
 		);
+
+		$this->container->setAttribute('LOCALITY', 'Oyenhausen');
+
+		$this->assertEquals(
+			$this->container->formatAddress(),
+			"Schulstrasse 4\nOyenhausen"
+		);
+
+		$this->container->setAttribute('POSTAL_CODE', '32547');
+
+		$this->assertEquals(
+			$this->container->formatAddress(),
+			"Schulstrasse 4\n32547 Oyenhausen"
+		);        
     }
 
     /**
