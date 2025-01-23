@@ -104,34 +104,37 @@ class Format implements \ArrayAccess
                 
                 if( empty( $this->input_map[$value] ) ) {
 
+                    $replacement_value = '';
+                    $replacement_key = '';
+
                     switch ($formatted_address) {
                         case \str_contains( $formatted_address, '%' . $key . '%n'):
                             // Remove the %n newline otherwise it's being left there
-                            $key = '%' . $key . '%n';
+                            $replacement_key = '%' . $key . '%n';
                             break;
                         case \str_contains( $formatted_address, '%' . $key . ' ' ):
                             // NL.json %Z has no %n newline as suffix but a space, so remove the key wíth the space.
                             // This is for when the address does have country but no postalcode.
-                            $key = '%' . $key . ' ';
+                            $replacement_key = '%' . $key . ' ';
                             break;
                         case \str_contains( $formatted_address, ' %' . $key ) :
                             // NL.json %C has no %n newline as prefix but a space, so remove the key wíth the space.
                             // This is for when the address does have postalcode but no country.
-                            $key = ' %' . $key;
+                            $replacement_key = ' %' . $key;
                             break;
                         case \str_contains( $formatted_address, '%' . $key ) :
                              // NL.json Just the % + key when it has no %n newline as suffix.
-                            $key = '%' . $key;
+                            $replacement_key = '%' . $key;
                             break;
                     }
-
-                    $replacement = '';
+                    
                 } else {
-                    $key = '%' . $key;
-                    $replacement = $this->input_map[$value];
+                    $replacement_value = $this->input_map[$value];
+                    $replacement_key = '%' . $key;   
                 }
 
-                $formatted_address = str_replace($key, $replacement, $formatted_address);
+
+                $formatted_address = str_replace($replacement_key, $replacement_value, $formatted_address);
                 
             }
 
